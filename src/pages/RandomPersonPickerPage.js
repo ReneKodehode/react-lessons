@@ -13,9 +13,29 @@ import {
 const RandomPersonPickerPage = () => {
   const [randomPerson, setRandomPerson] = useState(allPersons);
   const [randomNumber, setRandomNumber] = useState(0);
+  const [animation, setAnimation] = useState();
+  const [btnColor, setBtnColor] = useState("white");
+  const [animationEnded, setAnimationEnded] = useState();
 
-  const chooseVictim = () =>
-    setRandomNumber(Math.floor(Math.random() * (19 - 1) + 0));
+  useEffect(() => {
+    if (animationEnded){
+      setBtnColor("black")
+    }
+    else{
+      setBtnColor("white")
+      if (animation){
+        setRandomNumber(Math.floor(Math.random() * (19 - 1) + 0));
+      }
+      setAnimation(0);
+    }
+  })
+
+  const chooseVictim = () =>{
+    if (animationEnded && !animation){
+        setAnimation("${sneakIn}");
+        setAnimationEnded(0);
+      }  
+  }
 
   console.log(numbersConst);
   let filteredNumbers = numbersConst.filter((e, index) => {
@@ -25,9 +45,9 @@ const RandomPersonPickerPage = () => {
   return (
     <PageContainer>
       <RandomPersonBox>
-        <RandomText>{randomPerson[randomNumber]}</RandomText>
+        <RandomText textAnimation={animation} onAnimationEnd={() => {setAnimationEnded(1)}}>{randomPerson[randomNumber]}</RandomText>
       </RandomPersonBox>
-      <StyledButton onClick={chooseVictim}> Button of dethhhhh</StyledButton>
+      <StyledButton onClick={chooseVictim} backgroundColor={btnColor} txtColor={() => btnColor === "white" ? "red" : "white"}> Button of dethhhhh</StyledButton>
     </PageContainer>
   );
 };

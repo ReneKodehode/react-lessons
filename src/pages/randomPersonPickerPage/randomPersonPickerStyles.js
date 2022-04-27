@@ -36,13 +36,13 @@ export const RandomPersonBox = styled.div`
 
 export const RandomText = styled.p`
   font-size: 5rem;
-  opacity: 0;
-  animation: ${sneakIn} 10s forwards;
+  opacity: 1;
+  animation: ${sneakIn} ${props => props.textAnimation}4s forwards;
 `;
 
 export const StyledButton = styled.button`
-  background-color: black;
-  color: white;
+  background-color: ${props => props.backgroundColor};
+  color: ${props => props.txtColor};
   border-radius: 1rem;
   margin-bottom: 2rem;
   width: fit-content;
